@@ -42,10 +42,35 @@ function greetAfterDelay() {
 greetAfterDelay();
 
 // 配列の中の偶数だけを取り出して新しい配列を返す関数を作ってください。
+function filterEvenNumbers(arr) {
+  return [...arr].filter(num => num % 2 === 0);
+}
+console.log(filterEvenNumbers([1, 2, 3, 4, 5, 6])); // [2, 4, 6]
 
 // 文字列の中に"JavaScript"という単語が含まれているかどうかを判定する関数を書いてください。
+function containsJavaScript(str) {
+  return str.includes("JavaScript");
+}
+console.log(containsJavaScript("I love JavaScript!")); // true
+console.log(containsJavaScript("I love programming!")); // false
+
+// 配列の中の数値を昇順に並べ替える関数を書いてください。
+// hint: sort() をそのまま使うと文字列として比較されるため、[1, 2, 10, 20] が [1, 10, 2, 20] になってしまいます。比較関数を指定することで数値として正しくソートできます。
+function sortArrayAscending(arr) {
+  return [...arr].sort((a, b) => a - b);
+}
+console.log(sortArrayAscending([5, 2, 8, 1, 4])); // [1, 2, 4, 5, 8]
 
 // オブジェクトの中の値だけを配列として返す関数を作ってください。
+function getObjectKeysValues(obj) {
+  return Object.values(obj);
+}
+const sampleObj1 = {
+  name: "Alice",
+  age: 30,
+  city: "New York"
+}
+console.log(getObjectKeysValues(sampleObj1)); // ["Alice", 30, "New York"]
 
 // 2つの数字を引数に取り、その合計をPromiseで返す非同期関数を書いてください。
 function sumAsync(a, b) {
@@ -107,9 +132,85 @@ const capitalizeFirstLetter2 = (str) => str.charAt(0).toUpperCase() + str.slice(
 console.log(capitalizeFirstLetter2("world")); // "World"
 
 // 配列の中に特定の値が含まれているかを判定する関数を書いてください。
+function containsValue(arr, value) {
+  return arr.includes(value);
+}
+console.log(containsValue([1, 2, 3, 4, 5], 3)); // true
+console.log(containsValue([1, 2, 3, 4, 5], 6)); // false
 
 // オブジェクトの中のあるキーの値を返す関数を書いてください。
+function getValueByKey(obj, key) {
+  return obj[key];
+}
+const sampleObj2 = {
+  name: "Bob",
+  age: 25,
+  city: "Los Angeles"
+}
+console.log(getValueByKey(sampleObj2, "age")); // 25
 
 // 配列の要素を逆順にする関数を書いてください。
+function reverseArray(arr) {
+  return arr.reverse();
+}
+console.log(reverseArray([1, 2, 3, 4, 5])); // [5, 4, 3, 2, 1]
+// 元の配列を変更したくない場合は、以下のようにスプレッド演算子を使います。
+function reverseArrayCopy(arr) {
+  return [...arr].reverse();
+}
+console.log(reverseArrayCopy([1, 2, 3, 4, 5])); // [5, 4, 3, 2, 1]
+console.log([1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5
 
 // 配列の中のすべての要素の合計を返す関数を書いてください。
+function sumAllElements(arr) {
+  return arr.reduce((acc, curr) => acc + curr, 0);
+}
+console.log(sumAllElements([1, 2, 3, 4, 5])); // 15
+
+// 文字列をすべて大文字に変換する関数を書いてください。
+function toUpperCaseString(str) {
+  return str.toUpperCase();
+}
+console.log(toUpperCaseString("hello world")); // "HELLO WORLD"
+
+// 基礎レベル（5問）
+// 引数の数値を2倍にするアロー関数を書いてください。
+const doubleNumber = (num) => num * 2;
+console.log(doubleNumber(4)); // 8
+
+// 文字列の中の特定の文字が何回現れるか数える関数を書いてください。
+function countCharacter(str, char) {
+  let count = 0;
+  for (let i = 0; i<str.length; i++) {
+    if (str[i] === char) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countCharacter("hello world", "l")); // 3
+
+// 配列の中の最大値を返す関数を書いてください。
+function getMaxValue(arr) {
+  return Math.max(...arr);
+}
+console.log(getMaxValue([3, 5, 1, 8, 2])); // 8
+
+// 配列の中の奇数だけ抽出して返す関数を書いてください。
+function filterOddNumbers(arr) {
+  return arr.filter(num => num % 2 !== 0);
+}
+console.log(filterOddNumbers([1, 2, 3, 4, 5, 6])); // [1, 3, 5]
+
+// オブジェクトの全てのキーを取り出して配列にする関数を書いてください。
+
+// 少し上のレベル（5問）
+// 文字列の単語数を数える関数を書いてください。
+
+// 配列の中の連続した同じ要素を一つにまとめて返す関数を書いてください。
+
+// 非同期関数で、指定秒数待ってから「完了」と表示する関数を書いてください。
+
+// 2つの配列をマージして重複を除いた配列を返す関数を書いてください。
+
+// オブジェクトの配列から指定したキーの値だけを抽出して配列で返す関数を書いてください。
