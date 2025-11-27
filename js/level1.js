@@ -45,11 +45,21 @@ greetAfterDelay();
 function filterEvenNumbers(arr) {
   return [...arr].filter(num => num % 2 === 0);
 }
+// 違う書き方
+// function filterEvenNumbers(arr) {
+//   const result = [];
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] % 2 === 0) {
+//       result.push(arr[i]);
+//     }
+//   }
+//   return result;
+// }
 console.log(filterEvenNumbers([1, 2, 3, 4, 5, 6])); // [2, 4, 6]
 
 // 文字列の中に"JavaScript"という単語が含まれているかどうかを判定する関数を書いてください。
 function containsJavaScript(str) {
-  return str.includes("JavaScript");
+  return str.includes("JavaScript") ? true : false;
 }
 console.log(containsJavaScript("I love JavaScript!")); // true
 console.log(containsJavaScript("I love programming!")); // false
@@ -81,6 +91,16 @@ function sumAsync(a, b) {
 sumAsync(3, 7).then(result => {
   console.log(result); // 10
 })
+
+// async/await を使った書き方
+async function sumAsync2(a, b) {
+  return a + b;
+}
+async function executeSum() {
+  const result = await sumAsync2(3, 7);
+  console.log(result); // 10
+}
+executeSum();
 
 // 配列の中から特定の値を持つ要素をすべて削除する関数を書いてください。
 function removeElement(arr, value) {
@@ -203,14 +223,91 @@ function filterOddNumbers(arr) {
 console.log(filterOddNumbers([1, 2, 3, 4, 5, 6])); // [1, 3, 5]
 
 // オブジェクトの全てのキーを取り出して配列にする関数を書いてください。
-
+function getAllKeys(obj) {
+  return Object.keys(obj);
+}
+const sampleObj3 = {
+  brand: "Toyota",
+  model: "Corolla",
+  year: 2020
+}
+console.log(getAllKeys(sampleObj3)); // ["brand", "model", "year"]
+ 
 // 少し上のレベル（5問）
 // 文字列の単語数を数える関数を書いてください。
+// trim() - 文字列の前後の空白を削除
+// split(/\s+/) - 空白文字で分割（連続する空白も1つとして扱う）
+// filter(word => word.length > 0) -  空文字列を除外(0以上の長さの単語だけを残す)
+// trim() と filter() は厳密には不要ですが、より正確に単語数を数えるために使っています。
+function countWords(str) {
+  return str.trim().split(/\s+/).filter(word => word.length > 0).length;
+}
+console.log(countWords(" Hello   world! This is  JavaScript. ")); // 5
 
 // 配列の中の連続した同じ要素を一つにまとめて返す関数を書いてください。
+function removeConsecutiveDuplicate(arr) {
+  if (arr.length === 0) return [];
+  const result = [arr[0]];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] !== arr[i - 1]) {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+console.log(removeConsecutiveDuplicate([1, 1, 2, 2, 3, 1, 1, 4]));
+// 関数型プログラミング手法を使った別の書き方
+function removeConsecutiveDuplicateFP(arr) {
+  return arr.filter((item, index) => index === 0 || item !== arr[index - 1]);
+}
+console.log(removeConsecutiveDuplicateFP([1, 1, 2, 2, 3, 1, 1, 4]));
 
-// 非同期関数で、指定秒数待ってから「完了」と表示する関数を書いてください。
+// 非同期関数で、指定秒数待ってから「finished」と表示する関数を書いてください。
+async function waitAndLog(seconds) {
+  await new Promise(resolve => setTimeout(resolve, seconds * 1000));
+  console.log("finished");
+}
 
 // 2つの配列をマージして重複を除いた配列を返す関数を書いてください。
+function mergeAndRemoveDuplicates(arr1, arr2) {
+  return [...new Set([...arr1, ...arr2])];
+}
+console.log(mergeAndRemoveDuplicates([1, 2, 3], [3, 4, 5])); // [1, 2, 3, 4, 5]
 
 // オブジェクトの配列から指定したキーの値だけを抽出して配列で返す関数を書いてください。
+
+
+// 【初級】文法と基本操作（5問）
+// Q1. 数値を2倍にする（アロー関数）
+// 引数 n を受け取り、それを2倍にした値を返すアロー関数 double を作成してください。
+
+// Q2. 奇数の抽出
+// 数値の配列を受け取り、その中の「奇数だけ」を含む新しい配列を返す関数 filterOdds を作成してください。
+
+// Q3. 最大値の取得
+// 数値の配列を受け取り、その中の最大値を返す関数 findMax を作成してください。
+
+// Q4. キーの取得
+// オブジェクトを受け取り、そのすべてのキー（プロパティ名）を配列として返す関数 getObjectKeys を作成してください。
+
+// Q5. 文字のカウント
+// 文字列 str と、探したい文字 char を引数に取り、その文字が文字列の中に何回現れるかを返す関数 countChar を作成してください。
+
+// 【中級】データ処理とロジック（3問）
+// Q6. 重複の排除とマージ
+// 2つの配列 arr1 と arr2 を受け取り、それらを結合した上で、重複する要素を取り除いた新しい配列を返す関数 mergeUnique を作成してください。
+
+// Q7. オブジェクト配列からの抽出
+// 「ユーザーオブジェクトの配列」（例: [{id: 1, name: "Alice"}, {id: 2, name: "Bob"}]）と、「キー名」（例: "name"）を受け取り、そのキーの値だけを集めた配列（例: ["Alice", "Bob"]）を返す関数 pluck を作成してください。
+
+// Q8. 単語数のカウント
+// 英文の文字列を受け取り、そこに含まれる単語の数を返す関数 countWords を作成してください。（区切りはスペースと仮定して構いませんが、連続する空白への対処ができるとベターです）
+
+// 【上級】非同期処理とアルゴリズム（2問）
+// Q9. 非同期タイマー
+// 引数 seconds（秒数）を受け取り、指定した秒数だけ待機した後にコンソールに「完了」と表示する非同期関数 waitAndLog を作成してください。（Promiseまたはasync/awaitを使用）
+
+// Q10. 連続重複の削除
+// 配列を受け取り、**「隣り合って連続している」**重複要素だけを1つにまとめた配列を返す関数 compress を作成してください。
+// 例: [1, 2, 2, 3, 1, 1, 1] → [1, 2, 3, 1]
+// （Setを使ってすべての重複を消すのではなく、連続部分のみ圧縮するロジックが必要です）
