@@ -275,23 +275,70 @@ function mergeAndRemoveDuplicates(arr1, arr2) {
 console.log(mergeAndRemoveDuplicates([1, 2, 3], [3, 4, 5])); // [1, 2, 3, 4, 5]
 
 // オブジェクトの配列から指定したキーの値だけを抽出して配列で返す関数を書いてください。
-
+function pluck(arr, key) {
+  return arr.map(obj => obj[key])
+}
+const users = [
+  { id: 1, name: "Alice", age: 30 },
+  { id: 2, name: "Bob", age: 25 },
+  { id: 3, name: "Charlie", age: 35 }
+];
+console.log(pluck(users, "name")); // ["Alice", "Bob", "Charlie"]
 
 // 【初級】文法と基本操作（5問）
 // Q1. 数値を2倍にする（アロー関数）
 // 引数 n を受け取り、それを2倍にした値を返すアロー関数 double を作成してください。
+const double = (n) => n * 2;
+console.log(double(5)); // 10
 
 // Q2. 奇数の抽出
 // 数値の配列を受け取り、その中の「奇数だけ」を含む新しい配列を返す関数 filterOdds を作成してください。
+function filterOdds(arr) {
+  return arr.filter(num => num % 2 !== 0);
+}
+console.log(filterOdds([1, 2, 3, 4, 5, 6])); // [1, 3, 5]
 
 // Q3. 最大値の取得
 // 数値の配列を受け取り、その中の最大値を返す関数 findMax を作成してください。
+function findMax(arr) {
+  return Math.max(...arr);
+}
+console.log(findMax([3, 5, 1, 8, 2])); // 8
 
 // Q4. キーの取得
 // オブジェクトを受け取り、そのすべてのキー（プロパティ名）を配列として返す関数 getObjectKeys を作成してください。
+function getObjectKeys(obj) {
+  return Object.keys(obj);
+}
+const sampleObj4 = {
+  name: "Alice",
+  age: 30,
+  city: "New York"
+}
+console.log(getObjectKeys(sampleObj4)); // ["name", "age", "city"]
 
 // Q5. 文字のカウント
 // 文字列 str と、探したい文字 char を引数に取り、その文字が文字列の中に何回現れるかを返す関数 countChar を作成してください。
+function countChar(str, char) {
+  // includes
+  let count = 0;
+  for (let i =0; i < str.length; i++) {
+    if (str[i] === char) {
+      count++;
+    }
+  }
+  return count;
+}
+console.log(countChar("heLlo worLd", "l")); // 3
+// 別の書き方
+// function countChar(arr, char) {
+//   return arr.split('').filter(c => c === char).length;
+// }}
+// console.log(countChar("heLLo world", "l")); // 1
+
+//さらに別の書き方
+// const countChar = (str, char) => str.split('').reduce((acc, curr) => curr === char ? acc + 1 : acc, 0);
+// console.log(countChar("heLLo world", "l")); // 1
 
 // 【中級】データ処理とロジック（3問）
 // Q6. 重複の排除とマージ
@@ -311,3 +358,102 @@ console.log(mergeAndRemoveDuplicates([1, 2, 3], [3, 4, 5])); // [1, 2, 3, 4, 5]
 // 配列を受け取り、**「隣り合って連続している」**重複要素だけを1つにまとめた配列を返す関数 compress を作成してください。
 // 例: [1, 2, 2, 3, 1, 1, 1] → [1, 2, 3, 1]
 // （Setを使ってすべての重複を消すのではなく、連続部分のみ圧縮するロジックが必要です）
+
+// 第1段階：基本文法とデータ型
+// Q1. 変数の宣言と型
+// let を使って変数 price に数値 100 を代入し、変数 isAvailable に true を代入するコードを書いてください。
+// その後、typeof 演算子を使って price の型をコンソールに表示してください。
+let price = 100;
+let isAvailable = true;
+console.log(typeof price); // "number"
+
+// Q2. 文字列の操作
+// 定数 firstName に "Taro"、lastName に "Yamada" を定義し、テンプレート文字列（バッククォート）を使って "My name is Taro Yamada." という文字列を作成しコンソールに表示してください。
+const firstName = "Taro";
+const lastName  = "Yamada";
+console.log(`My name is ${firstName} ${lastName}.`); // "My name is Taro Yamada."
+
+// Q3. 配列の作成と参照
+// "apple", "banana", "orange" の3つの要素を持つ配列 fruits を作成し、2番目の要素（banana）をコンソールに表示してください。
+const fruits = ["apple", "banana", "orange"];
+console.log(fruits[1]); // "banana"
+
+// 第2段階：演算子と条件分岐
+// Q4. 厳密な比較
+// 変数 num に 文字列の "10" が入っています。if 文を使って、num が数値の 10 と**厳密に等しい（型も値も同じ）**場合にのみ "Equal" と表示し、そうでない場合は "Not Equal" と表示するコードを書いてください。
+let num = "10";
+num === 10 ? console.log("Equal") : console.log("Not Equal");
+
+// Q5. 条件演算子（三項演算子）
+// 変数 score が80以上なら "Pass"、それ以外なら "Fail" という文字列を変数 result に代入するコードを、if文を使わずに**条件演算子（? :）**で1行で書いてください。
+let score = 75;
+const result = score >= 80 ? "Pass" : "Fail";
+console.log(result); // "Fail"
+
+// 第3段階：ループと制御
+// Q6. for文によるループ
+// for 文を使って、1から10までの数値を順番にコンソールに表示するコードを書いてください。
+for (let i = 1; i <= 10; i++) {
+  console.log(i);
+}
+
+// Q7. 配列の合計（for...of）
+// 数値の配列 numbers = [10, 20, 30] があります。for...of 文を使って、この配列の要素の合計値を計算し、最後にコンソールに表示するコードを書いてください。
+const numbers = [10, 20, 30];
+let total = 0;
+for (const num of numbers) {
+  total += num;
+}
+console.log(total); // 60
+
+// Q8. switch文
+// 変数 rank（値は "A", "B", "C" のいずれか）の値に応じて、"Great", "Good", "Bad" をコンソールに表示する switch 文を書いてください。
+let rank = "B";
+switch (rank) {
+  case "A":
+    console.log("Great");
+    break;
+  case "B":
+    console.log("Good");
+    break;
+  case "C":
+    console.log("Bad");
+    break;
+  default:
+    console.log("Unknown rank");
+}
+
+// Q9. 論理演算子のショートカット
+// 変数 user が null または undefined のとき、デフォルト値として "Guest" を変数 userName に代入するコードを、論理和演算子 || を使って書いてください。（例: const userName = ...）
+const userName = user || "Guest";
+console.log(userName); // "Guest"
+
+// Q10. FizzBuzz
+// 1から20までの数値を順に表示しますが、3の倍数のときは "Fizz"、5の倍数のときは "Buzz"、両方の倍数（15など）のときは "FizzBuzz" と表示するコードを書いてください。（for 文と if 文の組み合わせ）
+const fizzBuzz = () => {
+  for (let i = 1; i <= 20; i++) {
+    if (i % 15 === 0) {
+      console.log("FizzBuzz");
+    } else if (i % 3 === 0) {
+      console.log("Fizz");
+    } else if (i % 5 === 0) {
+      console.log("Buzz");
+    } else {
+      console.log(i);
+    }
+  }
+}
+fizzBuzz();
+
+// 三項演算子を使った書き方:
+// function fizzBuzz() {
+//   for (let i = 1; i <= 20; i++) {
+//     console.log(
+//       i % 15 === 0 ? 'FizzBuzz' :
+//       i % 3 === 0 ? 'Fizz' :
+//       i % 5 === 0 ? 'Buzz' :
+//       i
+//     );
+//   }
+// }
+
