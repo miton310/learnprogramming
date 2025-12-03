@@ -343,21 +343,89 @@ console.log(countChar("heLlo worLd", "l")); // 3
 // 【中級】データ処理とロジック（3問）
 // Q6. 重複の排除とマージ
 // 2つの配列 arr1 と arr2 を受け取り、それらを結合した上で、重複する要素を取り除いた新しい配列を返す関数 mergeUnique を作成してください。
+function mergeUnique(arr1, arr2) {
+  return [...new Set([...arr1, ...arr2])];
+}
+console.log(mergeUnique([1, 2, 3], [3, 4, 5])); // [1, 2, 3, 4, 5]
+// 別の書き方
+// function mergeUnique(arr1, arr2) {
+//   const combined = arr1.concat(arr2); // 配列を結合
+//   const uniqueArray = [];
+//   for (let i = 0; i < combined.length; i++) {  // 結合した配列をループ
+//     if (!uniqueArray.includes(combined[i])) {  // 1個ずつ確認して、まだuniqueArrayに含まれていなければ追加
+//       uniqueArray.push(combined[i]);
+//     }
+//   }
+//   return uniqueArray;
+// }
 
 // Q7. オブジェクト配列からの抽出
 // 「ユーザーオブジェクトの配列」（例: [{id: 1, name: "Alice"}, {id: 2, name: "Bob"}]）と、「キー名」（例: "name"）を受け取り、そのキーの値だけを集めた配列（例: ["Alice", "Bob"]）を返す関数 pluck を作成してください。
+function pluck(arr, key) {
+  return arr.map(obj => obj[key]);
+}
+console.log(pluck([
+  { id: 1, name: "Alice"},
+  { id: 2, name: "Bob" },
+  { id: 3, name: "Charlie" }
+]));
+// 出力: ["Alice", "Bob", "Charlie"]
 
 // Q8. 単語数のカウント
 // 英文の文字列を受け取り、そこに含まれる単語の数を返す関数 countWords を作成してください。（区切りはスペースと仮定して構いませんが、連続する空白への対処ができるとベターです）
+function countWords(str) {
+  return str.trim().split(/\s+/).length; // trim()で前後の空白を削除し、正規表現\s+で連続する空白も1つとして分割
+}
+console.log(countWords(" Hello   world! This is  JavaScript. ")); // 5
 
 // 【上級】非同期処理とアルゴリズム（2問）
 // Q9. 非同期タイマー
 // 引数 seconds（秒数）を受け取り、指定した秒数だけ待機した後にコンソールに「完了」と表示する非同期関数 waitAndLog を作成してください。（Promiseまたはasync/awaitを使用）
+async function waitAndLog(seconds) {
+  await new Promise(resolve => setTimeout(resolve, seconds * 1000));
+  console.log("完了");
+}
+// 実際の使用例:
+// 注文処理: ユーザー確認 → 在庫確認 → 決済 → 注文確定
+async function processOrder(userId, productId) {
+  try {
+    // 1. ユーザー情報取得
+    const user = await fetch(`/api/users/${userId}`).then(r => r.json());
+    
+    // 2. 在庫確認
+    const stock = await fetch(`/api/products/${productId}/stock`).then(r => r.json());
+    
+    if (stock.quantity < 1) {
+      throw new Error('在庫切れ');
+    }
+    
+    // 3. 決済処理
+    const payment = await fetch('/api/payment', {
+      method: 'POST',
+      body: JSON.stringify({ userId, amount: stock.price })
+    }).then(r => r.json());
+    
+    // 4. 注文確定
+    const order = await fetch('/api/orders', {
+      method: 'POST',
+      body: JSON.stringify({ userId, productId, paymentId: payment.id })
+    }).then(r => r.json());
+    
+    return order;
+  } catch (error) {
+    console.error('注文処理エラー:', error);
+    throw error;
+  }
+}
 
 // Q10. 連続重複の削除
 // 配列を受け取り、**「隣り合って連続している」**重複要素だけを1つにまとめた配列を返す関数 compress を作成してください。
 // 例: [1, 2, 2, 3, 1, 1, 1] → [1, 2, 3, 1]
 // （Setを使ってすべての重複を消すのではなく、連続部分のみ圧縮するロジックが必要です）
+function compress(arr) {
+  return arr.filter((item, index) => index === 0 || item !== arr[index - 1]);  // 最初の要素はそのまま、以降は前の要素と異なる場合のみ保持
+}
+console.log(compress([1, 2, 2, 3, 1, 1, 1])); // [1, 2, 3, 1]
 
 // 第1段階：基本文法とデータ型
 // Q1. 変数の宣言と型
@@ -456,4 +524,49 @@ fizzBuzz();
 //     );
 //   }
 // }
+
+// 第1段階：文字列と数値の操作（Chapter 5）
+// Q1. 文字列の加工
+// 変数 str に " JavaScript "（前後に空白あり）が入っています。
+
+// 前後の空白を取り除く
+
+// すべて小文字に変換する
+// この2つの処理をメソッドチェーン（つなげて記述）で行い、結果の文字列 "javascript" をコンソールに表示してください。
+
+// Q2. 部分文字列の取得
+// 文字列 "2025-12-31" から、最初の4文字（年）だけを切り出してコンソールに表示するコードを書いてください。（substring または slice を使用）
+
+// Q3. 数値の四捨五入
+// 変数 pi = 3.14159 があります。この数値を小数点以下2桁になるように四捨五入して、文字列 "3.14" をコンソールに表示してください。（toFixed または Math.round を使用）
+
+// 第2段階：配列のメソッド（Chapter 5）
+// Q4. 配列への追加と削除
+// 配列 colors = ["red", "green"] があります。
+
+// 末尾に "blue" を追加する
+
+// 先頭の "red" を削除する
+// この操作を行った後の配列をコンソールに表示してください。（push, shift などを使用）
+
+// Q5. 配列の結合（文字列化）
+// 配列 path = ["home", "user", "documents"] を、スラッシュ / で結合してひとつの文字列 "home/user/documents" にしてコンソールに表示してください。（join を使用）
+
+// Q6. 配列の検索
+// 配列 members = ["Alice", "Bob", "Charlie"] の中に "Bob" が含まれているかどうかを判定し、含まれていれば true、いなければ false をコンソールに表示してください。（includes を使用）
+
+// 第3段階：関数とスコープ（Chapter 6）
+// Q7. アロー関数の定義
+// 引数として「底辺 (base)」と「高さ (height)」を受け取り、三角形の面積（底辺×高さ÷2）を計算して戻り値として返すアロー関数 calcTriangleArea を作成してください。
+// また、base=10, height=5 で呼び出した結果（25）をコンソールに表示してください。
+
+// Q8. デフォルト引数
+// 名前を受け取って挨拶をする関数 greet(name) を作成してください。引数が渡されなかった場合は、自動的に "Guest" という名前を使って "Hello, Guest!" と表示するようにデフォルト引数を設定してください。
+
+// 第4段階：少し応用（Chapter 5, 6）
+// Q9. 配列の変換（map）
+// 数値の配列 nums = [1, 2, 3, 4] があります。map メソッドを使って、すべての要素を2倍にした新しい配列 [2, 4, 6, 8] を作成し、コンソールに表示してください。
+
+// Q10. 配列の絞り込み（filter）
+// 数値の配列 scores = [50, 80, 40, 90, 75] から、60点以上のスコアだけを取り出した新しい配列を作成し、コンソールに表示してください。（filter を使用）
 
