@@ -528,45 +528,71 @@ fizzBuzz();
 // 第1段階：文字列と数値の操作（Chapter 5）
 // Q1. 文字列の加工
 // 変数 str に " JavaScript "（前後に空白あり）が入っています。
-
+let str = " JavaScript ";
 // 前後の空白を取り除く
-
 // すべて小文字に変換する
 // この2つの処理をメソッドチェーン（つなげて記述）で行い、結果の文字列 "javascript" をコンソールに表示してください。
+const processOrderedString = str.trim().toLowerCase();
+console.log(processOrderedString); // "javascript"
 
 // Q2. 部分文字列の取得
 // 文字列 "2025-12-31" から、最初の4文字（年）だけを切り出してコンソールに表示するコードを書いてください。（substring または slice を使用）
+let dateStr = "2025-12-31";
+const year = dateStr.substring(0, 4);
+console.log(year); // "2025"
 
 // Q3. 数値の四捨五入
 // 変数 pi = 3.14159 があります。この数値を小数点以下2桁になるように四捨五入して、文字列 "3.14" をコンソールに表示してください。（toFixed または Math.round を使用）
+let pi = 3.14159;
+console.log(pi.toFixed(2)); // "3.14"
 
 // 第2段階：配列のメソッド（Chapter 5）
 // Q4. 配列への追加と削除
 // 配列 colors = ["red", "green"] があります。
-
+let colors = ["red", "green"];
 // 末尾に "blue" を追加する
-
 // 先頭の "red" を削除する
 // この操作を行った後の配列をコンソールに表示してください。（push, shift などを使用）
+colors.push("blue");
+colors.shift();
+console.log(colors); // ["green", "blue"]
 
 // Q5. 配列の結合（文字列化）
 // 配列 path = ["home", "user", "documents"] を、スラッシュ / で結合してひとつの文字列 "home/user/documents" にしてコンソールに表示してください。（join を使用）
+let path = ["home", "user", "documents"];
+console.log(path.join("/"));
 
 // Q6. 配列の検索
 // 配列 members = ["Alice", "Bob", "Charlie"] の中に "Bob" が含まれているかどうかを判定し、含まれていれば true、いなければ false をコンソールに表示してください。（includes を使用）
+let members = ["Alice", "Bob", "Charlie"];
+console.log(members.includes("Bob")); // true
 
 // 第3段階：関数とスコープ（Chapter 6）
 // Q7. アロー関数の定義
 // 引数として「底辺 (base)」と「高さ (height)」を受け取り、三角形の面積（底辺×高さ÷2）を計算して戻り値として返すアロー関数 calcTriangleArea を作成してください。
 // また、base=10, height=5 で呼び出した結果（25）をコンソールに表示してください。
+const calcTriangleArea = (base, height) => (base * height) / 2;
+console.log(calcTriangleArea(10, 5)); // 25
 
 // Q8. デフォルト引数
 // 名前を受け取って挨拶をする関数 greet(name) を作成してください。引数が渡されなかった場合は、自動的に "Guest" という名前を使って "Hello, Guest!" と表示するようにデフォルト引数を設定してください。
+function greet(name = "Guest") {
+  console.log(`Hello, ${name}!`);
+}
+greet(); // "Hello, Guest!"
+greet("Alice"); // "Hello, Alice!"
 
 // 第4段階：少し応用（Chapter 5, 6）
 // Q9. 配列の変換（map）
 // 数値の配列 nums = [1, 2, 3, 4] があります。map メソッドを使って、すべての要素を2倍にした新しい配列 [2, 4, 6, 8] を作成し、コンソールに表示してください。
+let nums = [1, 2, 3, 4];
+const doubledNums = nums.map(num => num * 2);
+console.log(doubledNums); // [2, 4, 6, 8]
+
 
 // Q10. 配列の絞り込み（filter）
 // 数値の配列 scores = [50, 80, 40, 90, 75] から、60点以上のスコアだけを取り出した新しい配列を作成し、コンソールに表示してください。（filter を使用）
+let scores = [50, 80, 40, 90, 75];
+const passingScores = scores.filter(score => score >= 60);
+console.log(passingScores); // [80, 90, 75]
 
