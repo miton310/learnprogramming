@@ -13,27 +13,66 @@ console.log(points); // 結果を表示 [1, 5, 25, 40, 100]
 
 // Q3. スプレッド構文（Chapter 6）
 // 2つの配列 groupA = ["A", "B"] と groupB = ["C", "D"] があります。これらをスプレッド構文 ... を使って結合し、新しい配列 ["A", "B", "C", "D"] を作成してください。
+const groupA = ["A", "B"];
+const groupB = ["C", "D"];
+const combinedGroup = [...groupA, ...groupB];
+console.log (combinedGroup); // 結果を表示 ["A", "B", "C", "D"]
 
 // Q4. オブジェクトのプロパティ操作（Chapter 7）
 // 空のオブジェクト user を作成し、後からプロパティ name に "Tanaka"、age に 30 を追加してください。その後、user オブジェクト全体をコンソールに表示してください。
+let user = {}; // 空のオブジェクトを作成
+user.name = "Tanaka"
+user.age = 30;
+console.log(user); // 結果を表示 { name: "Tanaka", age: 30 }
 
 // Q5. 分割代入（Chapter 3, 6）
 // オブジェクト book = { title: "JavaScript入門", price: 2500 } があります。このオブジェクトから title と price という変数を分割代入を使って一度に取り出し、それぞれコンソールに表示してください。
+let book = { title: "JavaScript入門", price: 2500 };
+let { title, price  } = book; // 分割代入
+console.log(title); // 結果を表示 "JavaScript入門"
+console.log(price); // 結果を表示 2500
+
 
 // Q6. テンプレートリテラルの計算（Chapter 2）
 // 変数 a = 10, b = 20 があります。テンプレートリテラルの中で計算を行い、"合計は30です" という文字列を表示してください。
+let a = 10;
+let b = 20;
+console.log(`合計は${ a + b }です`); // 結果を表示 "合計は30です"
 
 // Q7. try...catch（Chapter 4）
 // 意図的にエラーを発生させるコード（例: 定義されていない関数を呼ぶなど）を try ブロックに書き、エラーが発生したら catch ブロックで "エラーが発生しました" とコンソールに表示するコードを書いてください。
 
+try {
+  nonExistentFunction();
+} catch (e) {
+  console.log("エラーが発生しました");
+  console.log(e.message);
+}
+
 // Q8. 関数式（Chapter 6）
-// 変数 multiply に、2つの引数を掛け算して返す**無名関数（関数式）**を代入してください。その後、multiply(3, 4) を実行して結果（12）を表示してください。
+// 変数 multiply に、2つの引数を掛け算して返す**無名関数（関数式）**を代入してください。その後、multiply(3, 4) を実行して結果（12）を表示してください。 
+let multiply = (x, y)  => {  return x * y };
+console.log(multiply(3, 4)); // 結果を表示 12
 
 // Q9. thisキーワード（Chapter 7, 8）
 // オブジェクト person を作成し、プロパティ name: "Ken" と、メソッド sayHello を定義してください。sayHello メソッド内で this.name を使って "Hello, I am Ken" と表示させてください。
+let person = {
+  name: "Ken",
+  sayHello: function () {
+    console.log(`Hello, I am ${this.name}`);
+  }
+}
+person.sayHello(); // 結果を表示 "Hello, I am Ken"
 
 // Q10. 配列の検索（find）（Chapter 5）
 // オブジェクトの配列 users = [{id: 1, name: "A"}, {id: 2, name: "B"}, {id: 3, name: "C"}] があります。ここから id が 2 のオブジェクトだけを検索して取り出し（find を使用）、そのオブジェクトをコンソールに表示してください。
+let users = [
+  {id: 1, name: "A"},
+  {id: 2, name: "B"},
+  {id: 3, name: "C"}
+];
+let user2 = users.find(user => user.id === 2);
+
 
 // 【セットB】Chapter 8〜10（クラス・DOM・非同期）（10問）
 // Q11. クラスの定義（Chapter 8）
